@@ -79,7 +79,7 @@ public class ZoneLogger {
 		String line = "";
 		System.out.println("Attempting to read zones file");
 	    if (firstRun) Zones = new TrainingZone[maxZones];
-	    else Zones = new TrainingZone[countZones()+1];	
+	    else Zones = new TrainingZone[maxZones];	// this is wrong, but at least working for now
 		try {
 			FileReader fr = new FileReader(zoneLoggerDirectory + zoneLoggerFileName);
 			BufferedReader br = new BufferedReader(fr);
@@ -97,8 +97,6 @@ public class ZoneLogger {
 					Zones[row]= new TrainingZone(lowerX, upperX, lowerY, upperY, lowerZ, upperZ, school);
 				}
 			}
-			System.out.println(Zones[0].lowerX +Zones[0].lowerZ +Zones[0].school);
-			System.out.println(Zones[1].lowerX +Zones[1].lowerZ +Zones[1].school);
 		}
 		catch(FileNotFoundException fN) {
 			fN.printStackTrace();
@@ -121,7 +119,7 @@ public class ZoneLogger {
 		
 			try{
 				writer = new BufferedWriter(new FileWriter(file));
-				for(int row=0 ; row < maxZones-1 ; row++){
+				for(int row=0 ; row < countZones()-1 ; row++){
 					writer.write(Zones[row].lowerX+",");
 					writer.write(Zones[row].upperX+",");
 					writer.write(Zones[row].lowerY+",");
