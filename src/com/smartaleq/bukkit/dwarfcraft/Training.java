@@ -1,5 +1,6 @@
 package com.smartaleq.bukkit.dwarfcraft;
 
+import org.bukkit.Material;
 import org.bukkit.croemmich.searchids.Colors;
 import java.util.Arrays;
 import org.bukkit.entity.Player;
@@ -23,7 +24,7 @@ public class Training extends SkillLevels{
 		//if player is not in training zone
 		String school = skill.school;
 		Boolean correctZone = false;
-		for(int i=0; i < ZoneLogger.Zones.length ; i++){
+		for(int i=0; i < ZoneLogger.countZones() ; i++){
 			if(ZoneLogger.Zones[i].school.equalsIgnoreCase(school)){
 				correctZone = true;
 				break;
@@ -140,28 +141,31 @@ public class Training extends SkillLevels{
 		trainingCosts = new int[7];
 		trainingCosts = skill.getSkillTrainingCost(newSkillLevel, player);
 		player.sendMessage("item Id: " + trainingCosts[1] + "  number required: " + trainingCosts[2]);
-		if (trainingCosts[0]>1){player.sendMessage("item Id: " + trainingCosts[3] + "  number required: " + trainingCosts[4]);}
-		if (trainingCosts[0]>2){player.sendMessage("item Id: " + trainingCosts[5] + "  number required: " + trainingCosts[6]);}
+		if (trainingCosts[0]>1){player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[3]).name() + "  number required: " + trainingCosts[4]);}
+		if (trainingCosts[0]>2){player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[5]).name() + "  number required: " + trainingCosts[6]);}
 		player.sendMessage("-----------------------------------------------------");
 	}
 
 	public static int getSkillIdFromName(String string) {
 		for(int skillId = 0; skillId < maximumSkillCount; skillId++){
 			System.out.println("trying to get skill name " + string + "at skillId " + skillId);
-			/* Not sure if it makes sense to check the validity of skilNameColumn anymore
-			   because we define it within an enum, not some funky text file...
-			   skillId might make a little more sense to check, though. Admittedly, dan didn't
-			   bother to check where maximumSkillCount is made, so blurgle */
-			//if(DwarfCraftSkills.skillsArray[skillId][DwarfCraftSkills.skillNameColumn] != null){
-			if(skillId <= Skills.values().length-1){
-			    if(string.regionMatches(0, Skills.values()[skillId].professionName, 0, 6 /*length to compare skill names*/)){return skillId;}
-			}
+			if(string.regionMatches(0, Skills.values()[skillId].professionName, 0, 6 /*length to compare skill names*/)){return skillId;}
 		}
 		return 0;
 	}
-
+	
 	public static void schoolInfo(Player player) {
-		// TODO Auto-generated method stub
+		player.sendMessage(Colors.Gold + " List of Schools");
+		player.sendMessage(Colors.Blue + "Tool Use");
+		player.sendMessage(Colors.Blue + "Mining");
+		player.sendMessage(Colors.Blue + "Digging");
+		player.sendMessage(Colors.Blue + "Lumberjack");
+		player.sendMessage(Colors.Blue + "Farming");
+		player.sendMessage(Colors.Blue + "Decorating");
+		player.sendMessage(Colors.Blue + "Specialist");
+		player.sendMessage(Colors.Blue + "Exploration");
+		player.sendMessage(Colors.Blue + "Combat");
+		player.sendMessage(Colors.Blue + "Civic");
 		
 	}			
 }

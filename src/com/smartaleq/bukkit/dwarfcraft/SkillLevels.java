@@ -57,7 +57,6 @@ public class SkillLevels {
 	public static int getSkillLevel(Skills skill, Player player){
 		int playerNumber = getPlayerNumber(player);
 		int skillLevel = playerSkillsArray[playerNumber][skill.skillId]; 
-		if(skill.skillId > Skills.values().length-1){return -1;}
 		return skillLevel;
 	}
 	

@@ -40,4 +40,6 @@ public class Inventory {
 			}
 		inventory.setContents(items);
 	}
+	
+	
 }

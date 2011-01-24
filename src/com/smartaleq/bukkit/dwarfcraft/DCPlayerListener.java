@@ -73,6 +73,9 @@ public class DCPlayerListener extends PlayerListener {
 						else if (trainResult == -3){
 							player.sendMessage("No. There is no such skill!");
 						}
+						else if (trainResult == -4){
+							player.sendMessage("No. You aren't in a " + skill.professionName + " training zone!");
+						}
 						else {
 							player.sendMessage("No. training wouldn't work");
 						}
@@ -165,7 +168,7 @@ public class DCPlayerListener extends PlayerListener {
 						zones = ZoneLogger.isInZones(player);
 						for(int i=0; i<5;i++){	
 							if(zones[i] != null){
-								player.sendMessage("In a " + zones[i].school + "training zone");
+								player.sendMessage("In a " + zones[i].school + " training zone");
 							}
 						}
 						event.setCancelled(true);
