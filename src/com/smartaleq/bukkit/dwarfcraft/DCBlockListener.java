@@ -37,7 +37,7 @@ public class DCBlockListener extends BlockListener {
 			/* 
 			 * check to see if block destroyed has itemdrop effects listed
 			 */
-			List<SkillEffects> applicableEffects = SkillEffects.getEffects(destroyedBlockType, "itemdrop");
+			List<SkillEffects> applicableEffects = SkillEffects.getEffectsForItemIdAndType(destroyedBlockType, "itemdrop");
 			if (applicableEffects.size() == 0)
 				return;
 

@@ -146,7 +146,7 @@ public enum SkillEffects {
 	/*
 	 * Returns all effects that trigger on specific effect type and specific item
 	 */
-	public static List<SkillEffects> getEffects(int itemId, String effectType){
+	public static List<SkillEffects> getEffectsForItemIdAndType(int itemId, String effectType){
 		//int[] outputArray;
 		List<SkillEffects> outputArray = new ArrayList<SkillEffects>();
 		for(SkillEffects s : SkillEffects.values())
@@ -154,7 +154,14 @@ public enum SkillEffects {
 			outputArray.add(s);
 		return outputArray;
 	}
-	
+
+	public static List<SkillEffects> getEffectsList(Skills skill){
+		List<SkillEffects> outputArray = new ArrayList<SkillEffects>();
+		for(SkillEffects s : SkillEffects.values())
+			if(s.effectId/10 == skill.skillId)
+				outputArray.add(s);
+		return outputArray;
+	}
 	/*
 	 * Returns the output item for effects that have an item output
 	 */

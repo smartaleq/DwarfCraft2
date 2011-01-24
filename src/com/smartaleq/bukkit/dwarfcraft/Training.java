@@ -3,6 +3,8 @@ package com.smartaleq.bukkit.dwarfcraft;
 import org.bukkit.Material;
 import org.bukkit.croemmich.searchids.Colors;
 import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 
@@ -140,10 +142,59 @@ public class Training extends SkillLevels{
 		int[] trainingCosts;
 		trainingCosts = new int[7];
 		trainingCosts = skill.getSkillTrainingCost(newSkillLevel, player);
-		player.sendMessage("item Id: " + trainingCosts[1] + "  number required: " + trainingCosts[2]);
+		player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[1]).name() + "  number required: " + trainingCosts[2]);
 		if (trainingCosts[0]>1){player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[3]).name() + "  number required: " + trainingCosts[4]);}
 		if (trainingCosts[0]>2){player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[5]).name() + "  number required: " + trainingCosts[6]);}
 		player.sendMessage("-----------------------------------------------------");
+		List<SkillEffects> effectsList = SkillEffects.getEffectsList(skill);
+		for(SkillEffects effect:effectsList){
+			if(effect.effectType.equalsIgnoreCase("itemdrop")) {
+				player.sendMessage(
+						"When "+Colors.Blue +
+						Material.getMaterial(effect.searchedItemId).name()
+						+Colors.White+" is destroyed: "+
+						Colors.Red+effect.effects[SkillLevels.getSkillLevel(skill, player)] + " " +
+						Colors.Blue + Material.getMaterial(effect.createdItemId).name()+ 
+						Colors.White+" is created");
+			}
+			else if(effect.effectType.equalsIgnoreCase("itemuse")){
+				/*
+				when 
+				item id name 
+				is used
+				it takes
+				abs(skilleffect)
+				less/more
+				durability damage			
+				*/
+			}
+			else if(effect.effectType.equalsIgnoreCase("entityattack")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("damageblock")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("craftitem")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("entitydamaged")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("vehiclemove")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("vehicledestroyed")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("eatfood")){
+			}
+			else if(effect.effectType.equalsIgnoreCase("killdrop")){
+				player.sendMessage(
+						"When "+Colors.Blue +
+						"MobNameTBD"
+						+Colors.White+" is killed: "+
+						Colors.Red+effect.effects[SkillLevels.getSkillLevel(skill, player)] + " " +
+						Colors.Blue + Material.getMaterial(effect.createdItemId).name()+ 
+						Colors.White+" is dropped");
+			}
+			else if(effect.effectType.equalsIgnoreCase("civic")){
+			}
+		}
+		
 	}
 
 	public static int getSkillIdFromName(String string) {
