@@ -30,7 +30,6 @@ public class ZoneLogger {
 		for(int i=0; i < maxZones; i++){
 			if(Zones[i] != null){zoneCount++;}
 		}
-		System.out.println("counted " + zoneCount + " zones");
 		return zoneCount;
 	}
 	
@@ -119,7 +118,7 @@ public class ZoneLogger {
 		
 			try{
 				writer = new BufferedWriter(new FileWriter(file));
-				for(int row=0 ; row < countZones()-1 ; row++){
+				for(int row=0 ; row < countZones() ; row++){
 					writer.write(Zones[row].lowerX+",");
 					writer.write(Zones[row].upperX+",");
 					writer.write(Zones[row].lowerY+",");

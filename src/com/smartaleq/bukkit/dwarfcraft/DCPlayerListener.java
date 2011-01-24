@@ -32,7 +32,17 @@ public class DCPlayerListener extends PlayerListener {
 				if (split[0].equalsIgnoreCase("/dc")){
 					if (split[1].equalsIgnoreCase("help")) {
 						//print help info
-						player.sendMessage("Caught help");
+						player.sendMessage(Colors.Red + "      Commands List");
+						player.sendMessage("/dc skillinfo <SkillId>");
+						player.sendMessage("/dc schoolinfo <School Name>");
+						player.sendMessage("/dc canitrain <skillId>");
+						player.sendMessage("/dc train <skillId>");
+						player.sendMessage("/dc skillsheet");
+						player.sendMessage("/dc skillsheet <playerName>");
+						player.sendMessage("/dc increaseskill <skillId>");
+						player.sendMessage("/dc zonelist");
+						player.sendMessage("/dc myzones");
+						player.sendMessage("/dc addzone <lowerX upperX lowerY upperY lowerZ upperZ school>");
 						event.setCancelled(true);
 						return;
 					}
@@ -138,7 +148,7 @@ public class DCPlayerListener extends PlayerListener {
 						event.setCancelled(true);
 						return;
 					}
-					else if (split[1].equalsIgnoreCase("makestrainingzone")){
+					else if (split[1].equalsIgnoreCase("addzone")){
 						String lowerX = split[2];
 						String upperX = split[3];
 						String lowerY = split[4];

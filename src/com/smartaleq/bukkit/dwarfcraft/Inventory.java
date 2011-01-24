@@ -10,7 +10,7 @@ public class Inventory {
 	static public int countItem(PlayerInventory inventory,int itemId) {
 		int itemCount = 0;
 		ItemStack[] items = inventory.getContents();
-		for(int i=0; i < 100; i++){
+		for(int i=0; i < items.length; i++){
 			if(items[i].getTypeId() == itemId){
 				itemCount += items[i].getAmount();
 			}
