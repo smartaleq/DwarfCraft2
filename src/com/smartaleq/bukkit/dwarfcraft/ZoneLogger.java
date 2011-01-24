@@ -19,7 +19,7 @@ public class ZoneLogger {
 	static String zoneLoggerDirectory = "./plugins/DwarfCraft/";
 		
 	static int maxZones = 200;
-	static String[][] ZonesArray; 
+	 
 	static TrainingZone[] Zones;
 	
 	static int zoneDataFields = 7;
@@ -35,16 +35,17 @@ public class ZoneLogger {
 	}
 	
 	static void addNewZone(String lowerX, String upperX, String lowerY, String upperY, String lowerZ, String upperZ, String school){
-		int newZoneNumber = countZones()+1;
-		ZonesArray[newZoneNumber][1] = lowerX;
-		ZonesArray[newZoneNumber][2] = upperX;
-		ZonesArray[newZoneNumber][3] = lowerY;
-		ZonesArray[newZoneNumber][4] = upperY;
-		ZonesArray[newZoneNumber][5] = lowerZ;
-		ZonesArray[newZoneNumber][6] = upperZ;		
-		ZonesArray[newZoneNumber][7] = school;
+		String[] newZoneArray;
+		newZoneArray = new String[7];
+		newZoneArray[0] = lowerX;
+		newZoneArray[1] = upperX;
+		newZoneArray[2] = lowerY;
+		newZoneArray[3] = upperY;
+		newZoneArray[4] = lowerZ;
+		newZoneArray[5] = upperZ;		
+		newZoneArray[6] = school;
 		backupZones();
-		saveZones();
+		saveZones(newZoneArray);
 		readZones(false);
 	}
 	
@@ -110,7 +111,7 @@ public class ZoneLogger {
 		current.delete();
 	}
 	
-	public static void saveZones() {
+	public static void saveZones(String[] newZoneArray) {
 		File file = new File(zoneLoggerDirectory + zoneLoggerFileName);
 		Writer writer = null;
 		for(int i=0;i<maxZones;i++){
@@ -126,6 +127,9 @@ public class ZoneLogger {
 					writer.write(Zones[row].upperZ+",");
 					writer.write(Zones[row].school);
 					writer.write(",\n");
+				}
+				if(newZoneArray[0] != null){
+					
 				}
 				writer.close();
 			}	
