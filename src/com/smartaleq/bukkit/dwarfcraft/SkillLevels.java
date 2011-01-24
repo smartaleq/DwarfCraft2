@@ -164,7 +164,7 @@ public class SkillLevels {
 			Skills skill;
 			while (printLineSkillCount < 3){
 				if (skillId == 100) break;
-				skill = Skills.values()[skillId];
+				skill = Skills.getSkillBySkillId(skillId);
 				if (skill != null){
 					skillNames[printLineSkillCount] = skill.professionName;
 					skillLevels[printLineSkillCount] = SkillLevels.getSkillLevel(skill, player);

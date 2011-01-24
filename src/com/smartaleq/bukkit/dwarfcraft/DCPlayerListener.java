@@ -122,7 +122,7 @@ public class DCPlayerListener extends PlayerListener {
 					}
 					else if (split[1].equalsIgnoreCase("makemeanelf")){
 						player.sendMessage("Elves have no skill levels and act like a vanilla player");
-						player.sendMessage("if this is what you want, try saying /dc iREALLYwanttobeanelf");
+						player.sendMessage("if this is what you want, try saying "+Colors.Gold+"/dc iREALLYwanttobeanelf");
 						event.setCancelled(true);
 						return;
 					}

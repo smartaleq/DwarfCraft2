@@ -18,7 +18,7 @@ public class ZoneLogger {
 	static String zoneLoggerBackupName = "Zones.data.backup";
 	static String zoneLoggerDirectory = "./plugins/DwarfCraft/";
 		
-	static int maxZones = 200;
+	static int maxZones = 100;
 	 
 	static TrainingZone[] Zones;
 	
@@ -35,6 +35,7 @@ public class ZoneLogger {
 	}
 	
 	static void addNewZone(String lowerX, String upperX, String lowerY, String upperY, String lowerZ, String upperZ, String school){
+		readZones(false);
 		String[] newZoneArray;
 		newZoneArray = new String[7];
 		newZoneArray[0] = lowerX;
@@ -96,6 +97,8 @@ public class ZoneLogger {
 					Zones[row]= new TrainingZone(lowerX, upperX, lowerY, upperY, lowerZ, upperZ, school);
 				}
 			}
+			System.out.println(Zones[0].lowerX +Zones[0].lowerZ +Zones[0].school);
+			System.out.println(Zones[1].lowerX +Zones[1].lowerZ +Zones[1].school);
 		}
 		catch(FileNotFoundException fN) {
 			fN.printStackTrace();
@@ -129,7 +132,14 @@ public class ZoneLogger {
 					writer.write(",\n");
 				}
 				if(newZoneArray[0] != null){
-					
+					writer.write(newZoneArray[0]+",");
+					writer.write(newZoneArray[1]+",");
+					writer.write(newZoneArray[2]+",");
+					writer.write(newZoneArray[3]+",");
+					writer.write(newZoneArray[4]+",");
+					writer.write(newZoneArray[5]+",");
+					writer.write(newZoneArray[6]+",");
+					writer.write(",\n");
 				}
 				writer.close();
 			}	
