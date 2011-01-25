@@ -9,7 +9,7 @@ public class SkillLevels {
 
 	static String playerSkillsFileName = "DwarfCraftPlayers.data";
 	static String playerSkillsBackupName = "DwarfCraftPlayers.data.backup";
-	static String playerSkillsDirectory = "./plugins/DwarfCraft/";
+	static String playerSkillsDirectory = "./DwarfCraft/";
 		
 	static int maxPlayers = 100;
 	static int[][] playerSkillsArray; 

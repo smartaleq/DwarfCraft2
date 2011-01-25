@@ -16,7 +16,7 @@ public class ZoneLogger {
 
 	static String zoneLoggerFileName = "Zones.data";
 	static String zoneLoggerBackupName = "Zones.data.backup";
-	static String zoneLoggerDirectory = "./plugins/DwarfCraft/";
+	static String zoneLoggerDirectory = "./DwarfCraft/";
 		
 	static int maxZones = 100;
 	 

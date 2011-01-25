@@ -17,8 +17,8 @@ public class DwarfCraft extends JavaPlugin {
  * A Block listener.
  */
 private final DCBlockListener blockListener = new DCBlockListener(this);
-private final DCPlayerListener	playerListener	= new DCPlayerListener(this);
-
+private final DCPlayerListener playerListener = new DCPlayerListener(this);
+private final DCEntityListener entityListener = new DCEntityListener(this);
 /**
  * Something related to debugging
  */
@@ -35,6 +35,7 @@ public DwarfCraft(PluginLoader pluginLoader, Server instance, PluginDescriptionF
 /**
  * Called upon enabling the plugin
  */
+@Override
 public void onEnable() {
     // TODO: Place any custom enable code here including the registration of any events
 
@@ -43,15 +44,8 @@ public void onEnable() {
 	pm.registerEvent(Event.Type.BLOCK_DAMAGED, blockListener, Priority.High, this);
 	pm.registerEvent(Event.Type.PLAYER_COMMAND, playerListener, Priority.Normal, this);
 	pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Priority.Normal, this);
+	pm.registerEvent(Event.Type.ENTITY_DAMAGEDBY_ENTITY, entityListener, Priority.Low, this);
 
-	
-	/* Dan doesnt know how java does enums well enough.
-	   He thinks it will eventually be worth investigating
-	   whether the enums need to be initialized manually at runtime,
-	   and a public instance of each kept for general touching.
-	   perhaps with a wrapper class*/
-	//DwarfCraftSkillEffects.readEffects();
-	//DwarfCraftSkills.readSkills();
 	SkillLevels.readPlayers();
 	ZoneLogger.readZones(true);
 	

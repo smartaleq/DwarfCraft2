@@ -38,9 +38,9 @@ public enum Skills {
 	LIGHTARMORSOLDIER (83,"Light Armor Soldier","Combat",2,new int[] {830,831,0,0,0,0,0,0},1,299,1,0,0,0,0,0.5,1.3),
 	HEAVYARMORSCOUT (84,"Heavy Armor Scout","Combat",2,new int[] {840,841,0,0,0,0,0,0},1,307,1,0,0,0,0,0.5,1.3),
 	FLETCHER (85,"Fletcher","Combat",3,new int[] {850,851,852,0,0,0,0,0},2,288,5,318,1,0,0,1,1.3),
-	CITIZEN (91,"Citizen","Seekrit",1,new int[] {910,0,0,0,0,0,0,0},1,329,0,0,0,0,0,0.5,1.3),
-	LEADER (92,"Leader","Seekrit",1,new int[] {920,0,0,0,0,0,0,0},2,57,1,354,1,0,0,0.5,1.3),
-	NOBLE (99,"Noble","Seekrit",1,new int[] {990,0,0,0,0,0,0,0},1,344,16,0,0,0,0,1,1.3);
+	CITIZEN (91,"Citizen","Civic",1,new int[] {910,0,0,0,0,0,0,0},1,329,0,0,0,0,0,0.5,1.3),
+	LEADER (92,"Leader","Civic",1,new int[] {920,0,0,0,0,0,0,0},2,57,1,354,1,0,0,0.5,1.3),
+	NOBLE (99,"Noble","Civic",1,new int[] {990,0,0,0,0,0,0,0},1,344,16,0,0,0,0,1,1.3);
 	
 
 	public int skillId;
