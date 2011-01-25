@@ -161,18 +161,31 @@ public class Training extends SkillLevels{
 				/*
 				when 
 				item id name 
-				is used
+				is properly used
 				it takes
-				abs(skilleffect)
+				(int)100 * abs(skilleffect) %
 				less/more
 				durability damage			
 				*/
 			}
 			else if(effect.effectType.equalsIgnoreCase("entityattack")){
+				/*
+				 * when sword is used durability dmg reduced/increased
+				 * when attacking sword dmg vs monsters
+				 * when attacking sword dmg vs players
+				 */
 			}
 			else if(effect.effectType.equalsIgnoreCase("damageblock")){
 			}
 			else if(effect.effectType.equalsIgnoreCase("craftitem")){
+				player.sendMessage(
+					"You create " +
+					effect.effects[SkillLevels.getSkillLevel(skill,player)] + " " +
+					Material.getMaterial(effect.createdItemId).name() +
+					" instead of " +
+					effect.effects[SkillLevels.getSkillLevel(skill,player)] + " " +
+					" when crafting"
+				);
 			}
 			else if(effect.effectType.equalsIgnoreCase("entitydamaged")){
 			}
@@ -181,6 +194,9 @@ public class Training extends SkillLevels{
 			else if(effect.effectType.equalsIgnoreCase("vehicledestroyed")){
 			}
 			else if(effect.effectType.equalsIgnoreCase("eatfood")){
+				/*
+				 * when you consume *item* you gain *(double)hp/2* hearts
+				 */
 			}
 			else if(effect.effectType.equalsIgnoreCase("killdrop")){
 				player.sendMessage(

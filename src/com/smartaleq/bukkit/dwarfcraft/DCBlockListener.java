@@ -22,6 +22,7 @@ public class DCBlockListener extends BlockListener {
 	 public DCBlockListener(final DwarfCraft plugin) {
 	     this.plugin = plugin;
 	 }
+		 
 	 
 	 public void onBlockDamage(BlockDamageEvent event)
 	{
@@ -34,10 +35,11 @@ public class DCBlockListener extends BlockListener {
 			Location destroyedBlockLocation = new Location(event.getBlock().getWorld(), event.getBlock().getX(), event.getBlock().getY(), event.getBlock().getZ(), 0, 0);
 			int destroyedBlockType = block.getTypeId();
 			Player player = event.getPlayer();
+			byte data = block.getData();
 			/* 
 			 * check to see if block destroyed has itemdrop effects listed
 			 */
-			List<SkillEffects> applicableEffects = SkillEffects.getEffectsForItemIdAndType(destroyedBlockType, "itemdrop");
+			List<SkillEffects> applicableEffects = SkillEffects.getEffectsForType( "itemdrop",destroyedBlockType);
 			if (applicableEffects.size() == 0)
 				return;
 
@@ -53,13 +55,15 @@ public class DCBlockListener extends BlockListener {
 				playerSkillLevel = SkillLevels.getSkillLevel(se.getSkillForEffect(), player);
 			    }					
 			    if (/* Output Block*/ se.createdItemId > 0){
-				event.getBlock().getWorld().dropItem(
+			    	if(destroyedBlockType == 59 && data < 0x07) continue; //not fully grown crops drop NOTHING
+			 			    	
+			    	event.getBlock().getWorld().dropItem(
 								     destroyedBlockLocation,
 								     new ItemStack(
 										   // Output Block
 										   se.createdItemId,
 										   // Output Count
-										   se.getRandomBlockCount(playerSkillLevel),
+										   se.getRandomAmount(playerSkillLevel),
 										   // OutputDamage
 										   (byte)0
 										   )

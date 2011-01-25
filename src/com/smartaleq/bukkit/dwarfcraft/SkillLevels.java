@@ -13,7 +13,7 @@ public class SkillLevels {
 		
 	static int maxPlayers = 100;
 	static int[][] playerSkillsArray; 
-	static String[] playerNamesArray;
+	public static String[] playerNamesArray;
 	
 	
 	
@@ -175,9 +175,6 @@ public class SkillLevels {
 				viewer.sendMessage(Colors.White+"  "+skillNames[0]+": "+Colors.Yellow+skillLevels[0]+"  "+Colors.White+skillNames[1]+": "+Colors.Yellow+skillLevels[1]+"  "+Colors.White+skillNames[2]+": "+Colors.Yellow+skillLevels[2]);
 			}
 		}
-//		if (printLineSkillCount==2){
-//			player.sendMessage("  "+skillNames[0]+": "+skillLevels[0]+"  "+skillNames[1]+": "+skillLevels[1]+"  "+skillNames[2]+": "+skillLevels[2]);
-//		}
 		if (printLineSkillCount==2){
 			viewer.sendMessage(Colors.White+"  "+skillNames[0]+": "+Colors.Yellow+Colors.White+skillLevels[0]+"  "+skillNames[1]+": "+Colors.Yellow+skillLevels[1]);
 		}
