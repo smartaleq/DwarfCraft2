@@ -6,7 +6,7 @@ import org.bukkit.inventory.*;
 
 public class Training extends SkillLevels{
 
-
+	
 	/*
 	 * Results from attemptSkillUp:
 	 * return -1: not enough items
@@ -16,7 +16,7 @@ public class Training extends SkillLevels{
 	 * return 0: failed
 	 * return 1: success
 	 */
-	public static int attemptSkillUp(Skills skill, Player player){ 
+	public static int checkSkillUp(Skills skill, Player player){ 
 		if(SkillLevels.getSkillLevel(skill, player) == -1){return -3;}
 		if(SkillLevels.getSkillLevel(skill, player) == 30){return -2;}
 		//if player is not in training zone
@@ -36,10 +36,22 @@ public class Training extends SkillLevels{
 		for (int i = 0; i < skillCost[0];i++){
 			if(Inventory.countItem(inv, skillCost[2*i + 1]) < skillCost[2*i+2]) return -1;
 		}
-		for (int i = 0; i < skillCost[0];i++){
-			Inventory.removeInventoryItems(inv, skillCost[2*i + 1], skillCost[2*i+2]);
-		}
 		return 1;
+	}
+	
+	public static int skillUp(Skills skill, Player player){ 
+		int newSkillLevel = SkillLevels.getSkillLevel(skill, player)+1;
+		int[] skillCost;
+		skillCost = skill.getSkillTrainingCost(newSkillLevel, player);
+		PlayerInventory inv = player.getInventory();	
+		if (checkSkillUp(skill, player)== 1){
+			for (int i = 0; i < skillCost[0];i++){
+			Inventory.removeInventoryItems(inv, skillCost[2*i + 1], skillCost[2*i+2]);
+			}
+			increaseSkill(skill,player);
+			return 1;
+		}
+		else return checkSkillUp(skill, player);
 	}
 	
 	/*
