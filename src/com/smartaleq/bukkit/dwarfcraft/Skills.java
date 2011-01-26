@@ -36,7 +36,7 @@ public enum Skills {
 	CLIMBING (72,"Climbing","Exploration",1,86,1,0,0,0,0,0.5,1.3),
 	SURVIVALIST (73,"Survivalist","Exploration",1,39,1,0,0,0,0,1,1.32),
 	SUSTAINABLEHARVESTING (74,"Harvester","Exploration",2,37,1,38,1,0,0,1,1.32),
-	ANIMALHUNTER (81,"Animal Hunter","Combat",3,319,1,334,1,36,2,1,1.36),
+	ANIMALHUNTER (81,"Animal Hunter","Combat",3,319,1,334,1,35,2,1,1.36),
 	MONSTERHUNTER (82,"Monster Hunter","Combat",2,287,2,289,2,0,0,0.5,1.4),
 	SCOUT (83,"Scout (Light Armor)","Combat",1,299,1,0,0,0,0,0.5,1.3),
 	SOLDIER (84,"Soldier (Heavy Armor)","Combat",1,307,1,0,0,0,0,0.5,1.3),
