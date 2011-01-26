@@ -1,10 +1,6 @@
 package com.smartaleq.bukkit.dwarfcraft;
 
-import org.bukkit.Material;
-import org.bukkit.croemmich.searchids.Colors;
 import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 
@@ -133,86 +129,21 @@ public class Training extends SkillLevels{
 		return playerLevel;
 	}
 
-	public static void skillInfo(Player player, Skills skill) {
-
-		int newSkillLevel = SkillLevels.getSkillLevel(skill, player) + 1;
-		player.sendMessage("-----------------------------------------------------");	
-		player.sendMessage("Skill Information for: " + Colors.Green + skill.professionName + Colors.White + " (id: " + Colors.Blue + skill.skillId + Colors.White + ")");
-		player.sendMessage("To train to level " + Colors.Yellow + newSkillLevel + Colors.White + " will cost:");
-		int[] trainingCosts;
-		trainingCosts = new int[7];
-		trainingCosts = skill.getSkillTrainingCost(newSkillLevel, player);
-		player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[1]).name() + "  number required: " + trainingCosts[2]);
-		if (trainingCosts[0]>1){player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[3]).name() + "  number required: " + trainingCosts[4]);}
-		if (trainingCosts[0]>2){player.sendMessage("item Id: " + Material.getMaterial(trainingCosts[5]).name() + "  number required: " + trainingCosts[6]);}
-		player.sendMessage("-----------------------------------------------------");
-		List<SkillEffects> effectsList = SkillEffects.getEffectsList(skill);
-		for(SkillEffects effect:effectsList){
-			if(effect.effectType.equalsIgnoreCase("itemdrop")) {
-				player.sendMessage(
-						"When "+Colors.Blue +
-						Material.getMaterial(effect.searchedItemId).name()
-						+Colors.White+" is destroyed: "+
-						Colors.Red+effect.effects[SkillLevels.getSkillLevel(skill, player)] + " " +
-						Colors.Blue + Material.getMaterial(effect.createdItemId).name()+ 
-						Colors.White+" is created");
-			}
-			else if(effect.effectType.equalsIgnoreCase("itemuse")){
-				/*
-				when 
-				item id name 
-				is properly used
-				it takes
-				(int)100 * abs(skilleffect) %
-				less/more
-				durability damage			
-				*/
-			}
-			else if(effect.effectType.equalsIgnoreCase("entityattack")){
-				/*
-				 * when sword is used durability dmg reduced/increased
-				 * when attacking sword dmg vs monsters
-				 * when attacking sword dmg vs players
-				 */
-			}
-			else if(effect.effectType.equalsIgnoreCase("damageblock")){
-			}
-			else if(effect.effectType.equalsIgnoreCase("craftitem")){
-				player.sendMessage(
-					"You create " +
-					effect.effects[SkillLevels.getSkillLevel(skill,player)] + " " +
-					Material.getMaterial(effect.createdItemId).name() +
-					" instead of " +
-					effect.effects[SkillLevels.getSkillLevel(skill,player)] + " " +
-					" when crafting"
-				);
-			}
-			else if(effect.effectType.equalsIgnoreCase("entitydamaged")){
-			}
-			else if(effect.effectType.equalsIgnoreCase("vehiclemove")){
-			}
-			else if(effect.effectType.equalsIgnoreCase("vehicledestroyed")){
-			}
-			else if(effect.effectType.equalsIgnoreCase("eatfood")){
-				/*
-				 * when you consume *item* you gain *(double)hp/2* hearts
-				 */
-			}
-			else if(effect.effectType.equalsIgnoreCase("killdrop")){
-				player.sendMessage(
-						"When "+Colors.Blue +
-						"MobNameTBD"
-						+Colors.White+" is killed: "+
-						Colors.Red+effect.effects[SkillLevels.getSkillLevel(skill, player)] + " " +
-						Colors.Blue + Material.getMaterial(effect.createdItemId).name()+ 
-						Colors.White+" is dropped");
-			}
-			else if(effect.effectType.equalsIgnoreCase("civic")){
-			}
-		}
+	public static int playerLevel(String playerName){
+		int playerNumber = getPlayerNumber(playerName);
+		int playerLevel = 5;
+		int highestSkill = 0;
 		
-	}
+		for(int i = 0; i < maximumSkillCount; i++){
+			int thisSkillLevel = playerSkillsArray[playerNumber][i];
+			if(thisSkillLevel > highestSkill){highestSkill = thisSkillLevel;};
+			if(thisSkillLevel > 5){playerLevel = playerLevel + thisSkillLevel - 5;};
 
+		}
+		if(playerLevel == 5){playerLevel = highestSkill;};
+		return playerLevel;
+	}
+	
 	public static int getSkillIdFromName(String string) {
 		for(int skillId = 0; skillId < maximumSkillCount; skillId++){
 			System.out.println("trying to get skill name " + string + "at skillId " + skillId);
@@ -221,18 +152,5 @@ public class Training extends SkillLevels{
 		return 0;
 	}
 	
-	public static void schoolInfo(Player player) {
-		player.sendMessage(Colors.Gold + " List of Schools");
-		player.sendMessage(Colors.Blue + "Tool Use");
-		player.sendMessage(Colors.Blue + "Mining");
-		player.sendMessage(Colors.Blue + "Digging");
-		player.sendMessage(Colors.Blue + "Lumberjack");
-		player.sendMessage(Colors.Blue + "Farming");
-		player.sendMessage(Colors.Blue + "Decorating");
-		player.sendMessage(Colors.Blue + "Specialist");
-		player.sendMessage(Colors.Blue + "Exploration");
-		player.sendMessage(Colors.Blue + "Combat");
-		player.sendMessage(Colors.Blue + "Civic");
-		
-	}			
+
 }

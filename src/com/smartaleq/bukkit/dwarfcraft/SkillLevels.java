@@ -34,6 +34,20 @@ public class SkillLevels {
 		return playerNumber;
 	}
 	
+	public static int getPlayerNumber(String playerName){
+		int playerNumber = -1;
+		for(int i=0; i < maxPlayers; i++){
+			if(playerNamesArray[i] == null){
+				continue;
+				}
+			if(playerNamesArray[i].length() == 0){
+				continue;
+				}
+			if(playerNamesArray[i].equalsIgnoreCase(playerName)){playerNumber = i;};
+		}
+		return playerNumber;
+	}
+	
 	public static int countPlayers(){
 		int playerCount = 0;
 		for(int i=0; i < maxPlayers; i++){
@@ -140,47 +154,20 @@ public class SkillLevels {
 		}
 	}
 
-	public static void skillSheet(Player player, Player viewer) {
-		String[] skillNames;
-		skillNames = new String[3];
-		int[] skillLevels;
-		skillLevels = new int[3];
-		String playerName = player.getDisplayName();
-	
-		viewer.sendMessage("Printing Skill Sheet for " + playerName + "  Player Level is " + Training.playerLevel(player));
-		int skillId=0;
-		int printLineSkillCount=0;
-		if(SkillLevels.isPlayerElf(player)){
-			viewer.sendMessage(Colors.Red+"Elves don't have skills, numbskull");
-			return;
-		}
-		while (skillId<maximumSkillCount){
-			if (printLineSkillCount == 3) skillId++;
-			printLineSkillCount = 0;
-			skillNames[0] = "";
-			skillNames[1] = "";
-			skillNames[2] = "";
-			Skills skill;
-			while (printLineSkillCount < 3){
-				if (skillId == 100) break;
-				skill = Skills.getSkillBySkillId(skillId);
-				if (skill != null){
-					skillNames[printLineSkillCount] = skill.professionName;
-					skillLevels[printLineSkillCount] = SkillLevels.getSkillLevel(skill, player);
-					printLineSkillCount++;
-				}
-				skillId++;
-			}
-			if (printLineSkillCount == 3) {
-				viewer.sendMessage(Colors.White+"  "+skillNames[0]+": "+Colors.Yellow+skillLevels[0]+"  "+Colors.White+skillNames[1]+": "+Colors.Yellow+skillLevels[1]+"  "+Colors.White+skillNames[2]+": "+Colors.Yellow+skillLevels[2]);
-			}
-		}
-		if (printLineSkillCount==2){
-			viewer.sendMessage(Colors.White+"  "+skillNames[0]+": "+Colors.Yellow+Colors.White+skillLevels[0]+"  "+skillNames[1]+": "+Colors.Yellow+skillLevels[1]);
-		}
-		if (printLineSkillCount==1){
-			viewer.sendMessage(Colors.White+"  "+skillNames[0]+": "+Colors.Yellow+skillLevels[0]);
-		}		
-	}	
+	public static boolean isPlayerElf(String playerName) {
+		int playerNumber = getPlayerNumber(playerName);
+		Boolean isElf = false;
+		int elfValue = playerSkillsArray[playerNumber][0];
+		if(elfValue != 0){isElf = true;}
+		return isElf;
+	}
+
+	public static int getSkillLevel(Skills skill, String playerName) {
+		int playerNumber = getPlayerNumber(playerName);
+		int skillLevel = playerSkillsArray[playerNumber][skill.skillId]; 
+		return skillLevel;
+	}
+
+
 	
 }

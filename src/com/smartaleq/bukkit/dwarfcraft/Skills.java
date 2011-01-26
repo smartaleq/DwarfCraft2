@@ -1,5 +1,9 @@
 package com.smartaleq.bukkit.dwarfcraft;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.croemmich.searchids.Colors;
 import org.bukkit.entity.Player;
 	
 public enum Skills {
@@ -101,14 +105,14 @@ public enum Skills {
 	
 	public static Skills getSkillBySkillId(int skillId){
 		for( Skills s: Skills.values()){
-		if (s.skillId == skillId) return s;
+			if (s.skillId == skillId) return s;
 		}	
 		return null;
 	}
 	
 	public static Skills getSkillBySkillName(String skillName){
 		for( Skills s: Skills.values()){
-		if (s.professionName.equalsIgnoreCase(skillName)) return s;
+			if (s.professionName.equalsIgnoreCase(skillName)) return s;
 		}	
 		return null;
 	}
@@ -140,6 +144,47 @@ public enum Skills {
 		trainingCosts[5] = this.trainingPaymentMat3Type;
 		trainingCosts[6] = (int)((double)this.trainingPaymentMat3Count * baseMultiplier);
 	    return trainingCosts;
+	}
+	
+	public static List<Skills> getSkillsList(int schoolId){
+		List<Skills> outputArray = new ArrayList<Skills>();
+		for(Skills s : Skills.values())
+			if(s.skillId/10 == schoolId)
+				outputArray.add(s);
+		return outputArray;
+	}
+
+
+	public static int findSchool(String playerInput) {
+		String[] split = playerInput.split(" ");
+		if(Integer.parseInt(split[0]) >=0 && Integer.parseInt(split[0])<10){
+			return Integer.valueOf(split[0]);
+		}
+		else if(split[0].length() > 0) {
+			if(split[1] != null){split[0] = split[0] + " " + split[1];};
+			playerInput = split[0];
+			return getSchoolIdBySchoolName(playerInput);
+		}
+		return -1;
+	}
+
+
+	private static int getSchoolIdBySchoolName(String playerInput) {
+		for (Skills s : Skills.values()){
+			if(s.school.equalsIgnoreCase(playerInput)) return (s.skillId/10);
+		}
+		return -1;
+	}
+	
+	public static String levelColors(Skills skill, Player player){
+		if (SkillLevels.getSkillLevel(skill, player) == 30) return Colors.Purple;		
+		if (SkillLevels.getSkillLevel(skill, player) > 20) return Colors.LightPurple;
+		if (SkillLevels.getSkillLevel(skill, player) > 10) return Colors.Green;
+		if (SkillLevels.getSkillLevel(skill, player) > 5) return Colors.LightGreen;
+		if (SkillLevels.getSkillLevel(skill, player) > 4) return Colors.Yellow;
+		if (SkillLevels.getSkillLevel(skill, player) > 1) return Colors.Gray;	
+		if (SkillLevels.getSkillLevel(skill, player) == 0) return Colors.LightGray;
+		else return Colors.White;
 	}
 }
 

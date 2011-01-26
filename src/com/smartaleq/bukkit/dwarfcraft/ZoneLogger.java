@@ -20,7 +20,7 @@ public class ZoneLogger {
 		
 	static int maxZones = 100;
 	 
-	static TrainingZone[] Zones;
+	public static TrainingZone[] Zones;
 	
 	static int zoneDataFields = 7;
 		
