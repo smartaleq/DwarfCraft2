@@ -1,12 +1,16 @@
 package com.smartaleq.bukkit.dwarfcraft;
 
 import java.io.IOException;
+import java.util.List;
+
 import org.bukkit.croemmich.searchids.Colors;
 import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerItemEvent;
 import org.bukkit.event.player.PlayerListener;
 // import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.inventory.ItemStack;
 
 
 public class DCPlayerListener extends PlayerListener {
@@ -212,5 +216,25 @@ public class DCPlayerListener extends PlayerListener {
 			}
 		 }
 	 }
-
+	
+	/*
+	 * Catch Food eating events
+	 */
+	@Override
+	public void onPlayerItem(PlayerItemEvent event){
+		ItemStack itemUsed = event.getItem();
+		Player player = event.getPlayer();
+		int itemId = itemUsed.getTypeId();
+		List<SkillEffects> skillList = SkillEffects.getEffectsForType("eatfood", itemId);
+		if(skillList.isEmpty()) return;
+		SkillEffects se = SkillEffects.getEffectsForType("eatfood", itemId).get(0);
+		int HP = player.getHealth();
+		int foodHP = (int)se.getEffectValue(SkillLevels.getSkillLevel(Skills.getSkillBySkillId(se.effectId/10), player));
+		int newHP = Math.min(20, HP+foodHP);
+		player.setHealth(newHP);
+		player.getInventory().remove(itemUsed);
+		event.setCancelled(true);
+	}
+		
 }
+	

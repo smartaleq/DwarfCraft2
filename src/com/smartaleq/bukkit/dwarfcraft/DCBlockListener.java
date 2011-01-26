@@ -16,16 +16,14 @@ import org.bukkit.inventory.ItemStack;
  * 
  */
 public class DCBlockListener extends BlockListener {
-	 @SuppressWarnings("unused")
-	private final DwarfCraft plugin;
+	private static DwarfCraft plugin;
 	 
 	 public DCBlockListener(final DwarfCraft plugin) {
-	     this.plugin = plugin;
+	     DCBlockListener.plugin = plugin;
 	 }
 		 
 	 
-	 public void onBlockDamage(BlockDamageEvent event)
-	{
+	 public void onBlockDamage(BlockDamageEvent event){
 		if (event.getDamageLevel() == org.bukkit.block.BlockDamageLevel.BROKEN && !event.isCancelled())
 		{	
 			/* 
@@ -47,29 +45,18 @@ public class DCBlockListener extends BlockListener {
 			event.setCancelled(true); 	
 			block.setType(Material.AIR);
 			for(SkillEffects se : applicableEffects) {
-			    int playerSkillLevel;
-			    if(SkillLevels.isPlayerElf(player)){
-				playerSkillLevel = se.elfEffectLevel;
-			    }
-			    else {
-				playerSkillLevel = SkillLevels.getSkillLevel(se.getSkillForEffect(), player);
-			    }					
+				
 			    if (/* Output Block*/ se.createdItemId > 0){
 			    	if(destroyedBlockType == 59 && data < 0x07) continue; //not fully grown crops drop NOTHING
-			 			    	
-			    	event.getBlock().getWorld().dropItem(
-								     destroyedBlockLocation,
-								     new ItemStack(
-										   // Output Block
-										   se.createdItemId,
-										   // Output Count
-										   se.getRandomAmount(playerSkillLevel),
-										   // OutputDamage
-										   (byte)0
-										   )
-								     );
-			    }
+			    	dropBlocks(player, destroyedBlockLocation, se, true);
+		    	}
 			}
 		}
-	}
+	 }
+
+	 static void dropBlocks(Player player, Location location, SkillEffects skillEffect,boolean naturally){
+		 ItemStack itemStack = new ItemStack(skillEffect.createdItemId,skillEffect.getRandomAmount(SkillEffects.getPlayerSkillLevel(player, skillEffect)));
+		 if(naturally)plugin.getServer().getWorlds()[0].dropItemNaturally(location, itemStack);
+		 else plugin.getServer().getWorlds()[0].dropItem(location, itemStack);
+	 }
 }
