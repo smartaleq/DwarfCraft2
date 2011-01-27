@@ -18,7 +18,9 @@ public class DCPlayerListener extends PlayerListener {
 	 public DCPlayerListener(final DwarfCraft plugin) {
 	     this.plugin = plugin;
 	 }
-	 
+	 /**
+	  * Player Command listener: parses first two sections of input and passes input on to the Messaging methods
+	  */
 	@Override
 	public void onPlayerCommand(PlayerChatEvent event) {
 		String[] split = event.getMessage().split(" ");
@@ -32,93 +34,109 @@ public class DCPlayerListener extends PlayerListener {
 			try{
 				if (split[0].equalsIgnoreCase("/dc")){
 					if (split[1].equalsIgnoreCase("help")) {
-						messaging.help(player,playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.help(player,playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("info")){
-						messaging.dwarfCraftInfo(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.dwarfCraftInfo(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("rules")){
-						messaging.rules(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.rules(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("?")) {
-						messaging.commandHelp(player,playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.commandHelp(player,playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("skillinfo")) {
-						messaging.skillInfo(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.skillInfo(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("schoolinfo")) {
-						messaging.schoolInfo(player, playerInput);
-						
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.schoolInfo(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("canitrain")) {
-						messaging.canitrain(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.canitrain(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("train")) {
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.train(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("increaseskill")) {
-						//if player is not admin throw notadmin exception
-						messaging.increaseSkill(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.admin")) messaging.increaseSkill(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("skillsheet")){
-						messaging.skillSheet(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.skillSheet(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("makemeadwarf")){
-						messaging.makemeadwarf(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.makemeadwarf(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("reallymakemeadwarf")){
-						messaging.reallymakemeadwarf(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.reallymakemeadwarf(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("makemeanelf")){
-						messaging.makemeanelf(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic"))messaging.makemeanelf(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("ireallywanttobeanelf")){
-						messaging.reallymakemeanelf(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.reallymakemeanelf(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("zonelist")){
-						messaging.zoneList(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.zoneList(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					if (split[1].equalsIgnoreCase("addzone")){
-						//if player is not admin throw notadmin exception
-						messaging.addZones(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.mod")) messaging.addZones(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
 						event.setCancelled(true);
 						return;
 					}
 					else if (split[1].equalsIgnoreCase("area")){
-						messaging.zonesAtPlayer(player, playerInput);
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic"))messaging.zonesAtPlayer(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
+	
 						event.setCancelled(true);
 						return;
 					}
-					else {
+					else {						
 						player.sendMessage("DC command not found");
 						event.setCancelled(true);
 					}
@@ -128,6 +146,13 @@ public class DCPlayerListener extends PlayerListener {
 		}
 	}
 
+	/**
+	 * This listener catches when a player joins the server. If they are a new player, they are initialized as a level 0 Dwarf. 
+	 * 
+	 * Players are greeted with their race and TODO level.
+	 * 
+	 * If maximum player number is reached, this method will crash and burn into a fiery orgy of death and burning.
+	 */
 	@Override
 	public void onPlayerJoin(PlayerEvent event){
 		Player player = event.getPlayer();
@@ -144,7 +169,7 @@ public class DCPlayerListener extends PlayerListener {
 				//throw max players in database reached thingamabob
 			}
 			player.sendMessage(Colors.Yellow+"*   *Since this is your first time playing, please*    *");
-			player.sendMessage(Colors.Yellow+"*       *read /dc rules and /dc info*          *");
+			player.sendMessage(Colors.Yellow+"*        *read /dc rules and /dc info*          *");
 		}
 		else {
 			if(Training.isPlayerElf(player)){
@@ -152,14 +177,14 @@ public class DCPlayerListener extends PlayerListener {
 				//welcome elf, may you die often due to your unskilled nature
 			}
 			else{
-				player.sendMessage("Welcome, "+Colors.Gold+ "dwarf " +Colors.DarkPurple + playerName);
+				player.sendMessage("Welcome, "+Colors.DarkPurple+ "dwarf " +Colors.DarkPurple + playerName);
 				//print to screen "welcome dwarf whatever of playerskilllevel whatever"
 			}
 		 }
 	 }
 	
-	/*
-	 * Catch Food eating events
+	/**
+	 * Catches Food eating events and adjusts health gained to reflect skill values.
 	 */
 	@Override
 	public void onPlayerItem(PlayerItemEvent event){
@@ -177,8 +202,9 @@ public class DCPlayerListener extends PlayerListener {
 		event.setCancelled(true);
 	}
 		
-	/* 
+	/**
 	 * catch crafting
+	 * TODO
 	 */
 //	@Override
 //	public void onInventoryClick(InventoryClickEvent event){

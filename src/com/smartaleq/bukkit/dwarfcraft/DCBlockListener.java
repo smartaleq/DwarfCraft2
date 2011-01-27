@@ -11,8 +11,10 @@ import org.bukkit.inventory.ItemStack;
 
 
 
-/*
- * This java file watches for broken blocks and passes info to SkillEffects
+/**
+ * This listener watches for block events
+ * currently: onBlockDamage results in skill-based drops
+ * TODO: Fueling of forges
  * 
  */
 public class DCBlockListener extends BlockListener {
@@ -47,13 +49,19 @@ public class DCBlockListener extends BlockListener {
 			for(SkillEffects se : applicableEffects) {
 				
 			    if (/* Output Block*/ se.createdItemId > 0){
-			    	if(destroyedBlockType == 59 && data < 0x07) continue; //not fully grown crops drop NOTHING
+			    	if(destroyedBlockType == 59 && data < 0x06) continue; //Modified: crops at level 6 and 7 have full drops- encourage active farming
 			    	dropBlocks(player, destroyedBlockLocation, se, true);
 		    	}
 			}
 		}
 	 }
-
+	/**
+	 * dropBlocks will create a new item stack at a location based on a particular skillEffect's drop profile
+	 * @param naturally true for dropItemNaturally, false for dropItem
+	 * @param player The player that caused the itemDrop
+	 * @param skillEffect The player's skillEffect that determines type and quantity of drop
+	 * @param location The location that the ItemStack is created at.
+	 */
 	 static void dropBlocks(Player player, Location location, SkillEffects skillEffect,boolean naturally){
 		 ItemStack itemStack = new ItemStack(skillEffect.createdItemId,skillEffect.getRandomAmount(SkillEffects.getPlayerSkillLevel(player, skillEffect)));
 		 if(naturally)plugin.getServer().getWorlds()[0].dropItemNaturally(location, itemStack);

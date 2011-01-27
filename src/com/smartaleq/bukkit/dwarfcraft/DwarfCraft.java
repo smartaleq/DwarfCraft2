@@ -10,6 +10,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
+import com.nijikokun.bukkit.Permissions.Permissions;
+import com.nijiko.permissions.PermissionHandler;
+import org.bukkit.plugin.Plugin;
 
 public class DwarfCraft extends JavaPlugin {
 
@@ -19,6 +22,25 @@ public class DwarfCraft extends JavaPlugin {
 private final DCBlockListener blockListener = new DCBlockListener(this);
 private final DCPlayerListener playerListener = new DCPlayerListener(this);
 private final DCEntityListener entityListener = new DCEntityListener(this);
+
+/*
+ * Permissions Integration
+ */
+public static PermissionHandler Permissions = null;
+
+public void setupPermissions() {
+	Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
+	if(DwarfCraft.Permissions == null) {
+	    if(test != null) {
+		DwarfCraft.Permissions = ((Permissions)test).getHandler();
+	    } else {
+		System.out.println( " Permission system not enabled. Disabling plugin.");
+		this.getServer().getPluginManager().disablePlugin(this);
+	    }
+	}
+    }
+
+
 /**
  * Something related to debugging
  */
@@ -37,9 +59,8 @@ public DwarfCraft(PluginLoader pluginLoader, Server instance, PluginDescriptionF
  */
 @Override
 public void onEnable() {
-    // TODO: Place any custom enable code here including the registration of any events
-
-    // Register our events
+	
+    // Register DwarfCraft events
     PluginManager pm = getServer().getPluginManager();
 	pm.registerEvent(Event.Type.BLOCK_DAMAGED, blockListener, Priority.High, this);
 	pm.registerEvent(Event.Type.PLAYER_COMMAND, playerListener, Priority.Normal, this);
@@ -55,7 +76,7 @@ public void onEnable() {
     System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 }
 
-/*
+/**
  * Called upon disabling the plugin.
  */
 public void onDisable() {
