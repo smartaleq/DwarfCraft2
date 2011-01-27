@@ -27,18 +27,19 @@ private final DCEntityListener entityListener = new DCEntityListener(this);
  * Permissions Integration
  */
 public static PermissionHandler Permissions = null;
-
-public void setupPermissions() {
-	Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
-	if(DwarfCraft.Permissions == null) {
-	    if(test != null) {
-		DwarfCraft.Permissions = ((Permissions)test).getHandler();
-	    } else {
-		System.out.println( " Permission system not enabled. Disabling plugin.");
-		this.getServer().getPluginManager().disablePlugin(this);
-	    }
-	}
-    }
+//
+//public void setupPermissions() {
+//	Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
+//
+//
+//	if(this.Permissions == null) {
+//	    if(test != null) {
+//		this.Permissions = ((Permissions)test).getHandler();
+//	    } else {
+//		this.getServer().getPluginManager().disablePlugin(this);
+//	    }
+//	}
+//    }
 
 
 /**
