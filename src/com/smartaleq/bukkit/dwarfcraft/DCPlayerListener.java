@@ -123,6 +123,12 @@ public class DCPlayerListener extends PlayerListener {
 						event.setCancelled(true);
 						return;
 					}
+					if (split[1].equalsIgnoreCase("readzones")){
+						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.admin")) messaging.readZones(player, playerInput);
+						else player.sendMessage("You don't have permission to use this command");
+						event.setCancelled(true);
+						return;
+					}
 					if (split[1].equalsIgnoreCase("addzone")){
 						if(!DwarfCraft.Permissions.has(player, "DwarfCraft.mod")) messaging.addZones(player, playerInput);
 						else player.sendMessage("You don't have permission to use this command");
