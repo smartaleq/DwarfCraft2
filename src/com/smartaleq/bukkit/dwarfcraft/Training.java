@@ -22,10 +22,13 @@ public class Training extends SkillLevels{
 		//if player is not in training zone
 		String school = skill.school;
 		Boolean correctZone = false;
-		for(int i=0; i < ZoneLogger.countZones() ; i++){
-			if(ZoneLogger.Zones[i].school.equalsIgnoreCase(school)){
+		if (ZoneLogger.Zones.length==0) return 0;
+		for (TrainingZone z: ZoneLogger.Zones){
+			if(z.school.equalsIgnoreCase(school)){
+				if (ZoneLogger.isPlayerInside(player, z)){
 				correctZone = true;
 				break;
+				}
 			}
 		}
 		if (!correctZone) return -4;
@@ -60,8 +63,6 @@ public class Training extends SkillLevels{
 	public static void increaseSkill(Skills skill, Player player){
 		int playerNumber = getPlayerNumber(player);
 		playerSkillsArray[playerNumber][skill.skillId]++;
-		backupSkills();
-		saveSkills();
 	}
 	
 	

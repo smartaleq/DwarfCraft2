@@ -110,9 +110,10 @@ public enum Skills {
 		return null;
 	}
 	
+	//TODO
 	public static Skills getSkillBySkillName(String skillName){
 		for( Skills s: Skills.values()){
-			if (s.professionName.equalsIgnoreCase(skillName)) return s;
+			if (s.professionName.equalsIgnoreCase(skillName.trim())) return s;
 		}	
 		return null;
 	}
@@ -184,7 +185,10 @@ public enum Skills {
 		if (SkillLevels.getSkillLevel(skill, player) > 4) return Colors.Yellow;
 		if (SkillLevels.getSkillLevel(skill, player) > 1) return Colors.Gray;	
 		if (SkillLevels.getSkillLevel(skill, player) == 0) return Colors.LightGray;
-		else return Colors.White;
+		else return Colors.Gold;
 	}
+
+
+
 }
 

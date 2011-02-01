@@ -18,7 +18,9 @@ public class SkillLevels {
 	
 	
 	static int maximumSkillCount = 100;
-		
+	
+
+	
 	public static int getPlayerNumber(Player player){
 		int playerNumber = -1;
 		String playerName = player.getDisplayName();

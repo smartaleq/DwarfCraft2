@@ -10,9 +10,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
-import com.nijikokun.bukkit.Permissions.Permissions;
 import com.nijiko.permissions.PermissionHandler;
-import org.bukkit.plugin.Plugin;
 
 public class DwarfCraft extends JavaPlugin {
 
@@ -77,6 +75,7 @@ public void onEnable() {
     System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 }
 
+
 /**
  * Called upon disabling the plugin.
  */
@@ -95,4 +94,8 @@ public boolean isDebugging(final Player player) {
 public void setDebugging(final Player player, final boolean value) {
     debugees.put(player, value);
 }
+public Player getPlayer (String playerName){
+	return this.getServer().getPlayer(playerName);
+}
+
 }

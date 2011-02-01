@@ -17,6 +17,7 @@ public class DCPlayerListener extends PlayerListener {
 	 
 	 public DCPlayerListener(final DwarfCraft plugin) {
 	     this.plugin = plugin;
+	     
 	 }
 	 /**
 	  * Player Command listener: parses first two sections of input and passes input on to the Messaging methods
@@ -49,7 +50,7 @@ public class DCPlayerListener extends PlayerListener {
 						return;
 					}
 					if (split[1].equalsIgnoreCase("?")) {
-						messaging.commandHelp(player,playerInput);
+						messaging.help(player,playerInput);
 						event.setCancelled(true);
 						return;
 					}
@@ -79,7 +80,7 @@ public class DCPlayerListener extends PlayerListener {
 						return;
 					}
 					if (split[1].equalsIgnoreCase("skillsheet")){
-						messaging.skillSheet(player, playerInput);
+						messaging.skillSheet(player, playerInput, plugin.getServer());
 						event.setCancelled(true);
 						return;
 					}
@@ -118,8 +119,14 @@ public class DCPlayerListener extends PlayerListener {
 						event.setCancelled(true);
 						return;
 					}
-					else if (split[1].equalsIgnoreCase("area")){
+					if (split[1].equalsIgnoreCase("area")){
 						messaging.zonesAtPlayer(player, playerInput);
+	
+						event.setCancelled(true);
+						return;
+					}
+					if (split[1].equalsIgnoreCase("debugtestmax")){
+						messaging.debugtestmax(player, playerInput);
 	
 						event.setCancelled(true);
 						return;
@@ -130,123 +137,6 @@ public class DCPlayerListener extends PlayerListener {
 					}
 				}
 			}
-// backup for working permissions		
-//			if (split[0].equalsIgnoreCase("/dc")){
-//				if (split[1].equalsIgnoreCase("help")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.help(player,playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("info")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.dwarfCraftInfo(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("rules")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.rules(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("?")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.commandHelp(player,playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("skillinfo")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.skillInfo(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("schoolinfo")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.schoolInfo(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("canitrain")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.canitrain(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("train")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.train(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("increaseskill")) {
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.admin")) messaging.increaseSkill(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("skillsheet")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.skillSheet(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("makemeadwarf")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.makemeadwarf(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("reallymakemeadwarf")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.reallymakemeadwarf(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("makemeanelf")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic"))messaging.makemeanelf(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("ireallywanttobeanelf")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.reallymakemeanelf(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("zonelist")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic")) messaging.zoneList(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("readzones")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.admin")) messaging.readZones(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				if (split[1].equalsIgnoreCase("addzone")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.mod")) messaging.addZones(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//					event.setCancelled(true);
-//					return;
-//				}
-//				else if (split[1].equalsIgnoreCase("area")){
-//					if(!DwarfCraft.Permissions.has(player, "DwarfCraft.basic"))messaging.zonesAtPlayer(player, playerInput);
-//					else player.sendMessage("You don't have permission to use this command");
-//
-//					event.setCancelled(true);
-//					return;
-//				}
-//				else {						
-//					player.sendMessage("DC command not found");
-//					event.setCancelled(true);
-//				}
-//			}
-//		}
 			catch (NumberFormatException f) {return;}
 		}
 	}

@@ -43,15 +43,25 @@ public class DCBlockListener extends BlockListener {
 			if (applicableEffects.size() == 0)
 				return;
 
-			//replace block with air and drop appropriate results
-			event.setCancelled(true); 	
-			block.setType(Material.AIR);
+
+			boolean blocksWereDropped = false;
 			for(SkillEffects se : applicableEffects) {
 				
 			    if (/* Output Block*/ se.createdItemId > 0){
 			    	if(destroyedBlockType == 59 && data < 0x06) continue; //Modified: crops at level 6 and 7 have full drops- encourage active farming
-			    	dropBlocks(player, destroyedBlockLocation, se, true);
+			    	for(int toolId : se.allowableTools){
+			    		if (player.getItemInHand().getTypeId() == toolId || player.getItemInHand().getTypeId() == -1) {
+					    	dropBlocks(player, destroyedBlockLocation, se, true);
+					    	blocksWereDropped = true;
+					    	break;
+			    		}
+			    	}
 		    	}
+			}
+			//replace block with air and drop appropriate results
+			if(blocksWereDropped){
+				event.setCancelled(true); 	
+				block.setType(Material.AIR);
 			}
 		}
 	 }
@@ -63,7 +73,9 @@ public class DCBlockListener extends BlockListener {
 	 * @param location The location that the ItemStack is created at.
 	 */
 	 static void dropBlocks(Player player, Location location, SkillEffects skillEffect,boolean naturally){
-		 ItemStack itemStack = new ItemStack(skillEffect.createdItemId,skillEffect.getRandomAmount(SkillEffects.getPlayerSkillLevel(player, skillEffect)));
+		 int randomAmount = skillEffect.getRandomAmount(SkillEffects.getPlayerSkillLevel(player, skillEffect));
+		 ItemStack itemStack = new ItemStack(skillEffect.createdItemId,randomAmount);
+		 if(randomAmount == 0) return;
 		 if(naturally)plugin.getServer().getWorlds()[0].dropItemNaturally(location, itemStack);
 		 else plugin.getServer().getWorlds()[0].dropItem(location, itemStack);
 	 }
